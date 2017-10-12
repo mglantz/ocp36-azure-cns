@@ -8,7 +8,7 @@
 				"description": "Base URL for Template Files",
 				"artifactsBaseUrl": ""
 			},
-			"defaultValue": "https://raw.githubusercontent.com/mglantz/ocp36-azure-simple/master/"
+			"defaultValue": "https://raw.githubusercontent.com/mglantz/ocp36-azure-cns/master/"
 		},
 		"masterVmSize": {
 			"type": "string",
@@ -99,6 +99,15 @@
 				"description": "Size of Datadisk in GB for Docker volume"
 			}
 		},
+        "dataDiskSizeCns": {
+            "type": "int",
+            "defaultValue": 20,
+            "minValue": 1,
+            "allowedValues": [20, 30, 40, 50, 60, 70, 80, 90, 100, 128, 512, 1023],
+            "metadata": {
+                "description": "Size of Datadisk in GB for 3x CNS gluster volumes"
+            }
+        },
 		"adminUsername": {
 			"type": "string",
 			"defaultValue": "ocpadmin",
@@ -1199,7 +1208,34 @@
 							"uri": "[concat(concat(reference(resourceId(resourceGroup().name, 'Microsoft.Storage/storageAccounts', variables('newStorageAccountMaster')), variables('apiVersionStorage')).primaryEndpoints['blob'], 'vhds/'), variables('openshiftInfraHostname'), copyIndex(), 'docker-pool.vhd')]"
 						},
 						"createOption": "Empty"
-					}]
+					}],
+                    "dataDisks": [{
+                        "name": "[concat(variables('openshiftNodeHostname'), copyIndex(), '-glusterfs-pool1')]",
+                        "diskSizeGB": "[parameters('dataDiskSizeCns')]",
+                        "lun": 1,
+                        "vhd": {
+                            "uri": "[concat(concat(reference(resourceId(resourceGroup().name, 'Microsoft.Storage/storageAccounts', variables('newStorageAccountNode')), variables('apiVersionStorage')).primaryEndpoints['blob'], 'vhds/'), variables('openshiftNodeHostname'), copyIndex(), '-glusterfs-pool1.vhd')]"
+                        },
+                        "createOption": "Empty"
+                    }],
+                    "dataDisks": [{
+                        "name": "[concat(variables('openshiftNodeHostname'), copyIndex(), '-glusterfs-pool2')]",
+                        "diskSizeGB": "[parameters('dataDiskSizeCns')]",
+                        "lun": 2,
+                        "vhd": {
+                            "uri": "[concat(concat(reference(resourceId(resourceGroup().name, 'Microsoft.Storage/storageAccounts', variables('newStorageAccountNode')), variables('apiVersionStorage')).primaryEndpoints['blob'], 'vhds/'), variables('openshiftNodeHostname'), copyIndex(), '-glusterfs-pool2.vhd')]"
+                        },
+                        "createOption": "Empty"
+                    }],
+                    "dataDisks": [{
+                        "name": "[concat(variables('openshiftNodeHostname'), copyIndex(), '-glusterfs-pool3')]",
+                        "diskSizeGB": "[parameters('dataDiskSizeCns')]",
+                        "lun": 3,
+                        "vhd": {
+                            "uri": "[concat(concat(reference(resourceId(resourceGroup().name, 'Microsoft.Storage/storageAccounts', variables('newStorageAccountNode')), variables('apiVersionStorage')).primaryEndpoints['blob'], 'vhds/'), variables('openshiftNodeHostname'), copyIndex(), '-glusterfs3-pool.vhd')]"
+                        },
+                        "createOption": "Empty"
+                    }]
 				},
 				"networkProfile": {
 					"networkInterfaces": [{
