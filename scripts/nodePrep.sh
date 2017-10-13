@@ -65,7 +65,6 @@ subscription-manager repos \
     --enable="rhel-7-fast-datapath-rpms" \
     --enable="rhel-7-server-ose-3.6-rpms"
 
-<<<<<<< HEAD
 # Container Native Storage pre-req on infra hosts
 if hostname|grep ocpi >/dev/null; then
 	subscription-manager repos --enable=rh-gluster-3-for-rhel-7-server-rpms
