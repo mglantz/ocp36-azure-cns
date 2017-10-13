@@ -29,6 +29,9 @@
 		"dataDiskSize": {
 			"value": 128
 		},
+		"dataDiskSizeCns": {
+			"value": 20
+		},
 		"adminUsername": {
 			"value": "OCP_USER"
 		},
