@@ -411,6 +411,7 @@ chmod a+r /tmp/atomic-openshift-master
 runuser -l $SUDOUSER -c "ansible-playbook ~/postinstall4.yml"
 
 # OPENSHIFT_DEFAULT_REGISTRY UNSET MAGIC
+# Annotate Glusterfs storage class
 if [ $MASTERCOUNT -ne 1 ]
 then
 	for item in ocpm-0 ocpm-1 ocpm-2; do
@@ -418,6 +419,9 @@ then
 		runuser -l $SUDOUSER -c "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $item 'sudo sed -i \"s/OPENSHIFT_DEFAULT_REGISTRY/#OPENSHIFT_DEFAULT_REGISTRY/g\" /etc/sysconfig/atomic-openshift-master-controllers'"
 		runuser -l $SUDOUSER -c "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $item 'sudo systemctl restart atomic-openshift-master-api'"
 		runuser -l $SUDOUSER -c "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $item 'sudo systemctl restart atomic-openshift-master-controllers'"
+		if [ "$item" == "ocpm-0" ]; then
+			runuser -l $SUDOUSER -c "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $item 'sudo oc annotate sc glusterfs-storage storageclass.kubernetes.io/is-default-class=\"true\"'
+		fi
 	done
 fi
 
