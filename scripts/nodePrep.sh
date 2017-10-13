@@ -65,6 +65,7 @@ subscription-manager repos \
     --enable="rhel-7-fast-datapath-rpms" \
     --enable="rhel-7-server-ose-3.6-rpms"
 
+<<<<<<< HEAD
 # Container Native Storage pre-req on infra hosts
 if hostname|grep ocpi >/dev/null; then
 	subscription-manager repos --enable=rh-gluster-3-for-rhel-7-server-rpms
@@ -88,6 +89,8 @@ if hostname|grep ocpi >/dev/null; then
 	echo target_core_user >/etc/modules-load.d/target_core_user.conf
 fi
 
+=======
+>>>>>>> ad1c0c234068faa88545e14d712708c2fbdf92cf
 # Install and enable Cockpit
 echo $(date) " - Installing and enabling Cockpit"
 
@@ -128,6 +131,18 @@ fi
 
 systemctl enable docker
 systemctl start docker
+
+# Container Native Storage pre-req on infra hosts
+if hostname|grep ocpi >/dev/null; then
+	subscription-manager repos --enable=rh-gluster-3-for-rhel-7-server-rpms
+	modprobe dm_thin_pool
+	modprobe dm_multipath
+	modprobe target_core_user
+
+	echo dm_thin_pool >/etc/modules-load.d/dm_thin_pool.conf
+	echo dm_multipath >/etc/modules-load.d/dm_multipath.conf
+	echo target_core_user >/etc/modules-load.d/target_core_user.conf
+fi
 
 echo $(date) " - Script Complete"
 
