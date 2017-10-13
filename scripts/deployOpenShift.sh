@@ -420,7 +420,7 @@ then
 		runuser -l $SUDOUSER -c "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $item 'sudo systemctl restart atomic-openshift-master-api'"
 		runuser -l $SUDOUSER -c "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $item 'sudo systemctl restart atomic-openshift-master-controllers'"
 		if [ "$item" == "ocpm-0" ]; then
-			runuser -l $SUDOUSER -c "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $item 'sudo oc annotate sc glusterfs-storage storageclass.kubernetes.io/is-default-class=\"true\"'
+			runuser -l $SUDOUSER -c "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $item 'sudo oc annotate sc glusterfs-storage storageclass.kubernetes.io/is-default-class=\"true\"'"
 		fi
 	done
 fi
