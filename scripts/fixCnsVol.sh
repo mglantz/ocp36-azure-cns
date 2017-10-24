@@ -7,6 +7,8 @@
 # DON'T RUN IT IF YOU DON'T UNDERSTAND WHAT IT DOES.
 # If there are glusterfs volumes other than the ones coming from CNS, they will be unmounted.
 
+# This script needs to run as root or a user which can run fusermount-glusterfs -u
+
 # Fetch token of cluster admin with 'oc whoami -t' and put value here.
 TOKEN=
 # FQDN of OCP server
