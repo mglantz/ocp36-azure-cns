@@ -1,7 +1,8 @@
 #!/bin/bash
 # Magnus Glantz, sudo@redhat.com, 2017
 # To be run on scheduble OpenShift nodes to resolve https://bugzilla.redhat.com/show_bug.cgi?id=1489082
-# You can put this in a crontab and run once a minute or so as a workaround.
+# You can put this in a crontab and run once a minute or so as a workaround. 
+# Allow around 2 minutes for stuck pod or project with stuck pod in it to get deleted after this script is run.
 
 # DON'T RUN IT IF YOU DON'T UNDERSTAND WHAT IT DOES.
 # If there are glusterfs volumes other than the ones coming from CNS, they will be unmounted.
