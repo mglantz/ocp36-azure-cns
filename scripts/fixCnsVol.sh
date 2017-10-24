@@ -1,6 +1,9 @@
 #!/bin/bash
+# Magnus Glantz, sudo@redhat.com, 2017
 
+# Fetch token of cluster admin with 'oc whoami -t' and put value here.
 TOKEN=
+# FQDN of OCP server
 OCPSERVER=""
 # Change below to yes to unmount volumes detected as stale
 DANGERZONE="no"
