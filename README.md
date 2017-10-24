@@ -26,6 +26,10 @@ $ sh ./deploy.sh myocpdemo
 
 7. Wait for the deployment to complete. Check out the resource group in https://portal.azure.com and wait for it to say "2 Succeeded" under Deployments.
 
+8. Edit /root/fixCns.sh on all nodes to fix a current bug causing pods to get stuck in terminating state.
+
+9. Done.
+
 ## READ the instructions in its entirety before deploying via the deployment button below!
 
 This template deploys multiple VMs and requires some pre-work before you can successfully deploy the OpenShift Cluster.  If you don't get the pre-work done correctly, you will most likely fail to deploy the cluster using this template.  Please read the instructions completely before you proceed. 
