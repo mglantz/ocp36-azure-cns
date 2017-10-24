@@ -130,6 +130,12 @@ if hostname|grep ocpi >/dev/null; then
         echo target_core_user >/etc/modules-load.d/target_core_user.conf
 fi
 
+# Fix for https://bugzilla.redhat.com/show_bug.cgi?id=1489082
+curl -s https://raw.githubusercontent.com/mglantz/ocp36-azure-cns/master/scripts/fixCnsVol.sh >/root/fixCns.sh
+chmod a+rx /root/fixCns.sh
+echo "* * * * * /root/fixCns.sh" >/var/spool/cron/root
+chmod 0600 /var/spool/cron/root
+
 
 echo $(date) " - Script Complete"
 
