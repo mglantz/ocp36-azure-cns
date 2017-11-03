@@ -12,7 +12,7 @@
 # Fetch token of cluster admin with 'oc whoami -t' and put value here.
 TOKEN=
 # FQDN of OCP server
-OCPSERVER=""
+OCPSERVER="https://example-server:8443"
 # Change below to yes to unmount volumes detected as stale
 DANGERZONE="no"
 
